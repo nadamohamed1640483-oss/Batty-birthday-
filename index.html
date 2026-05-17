@@ -224,7 +224,7 @@ video {
 <div class="custom-alert" id="customAlert">
     <div class="alert-box">
         <div class="alert-text" id="alertMessage">الرسالة هنا</div>
-        <button class="alert-btn" onclick="closeAlert()">حاضر هختار صح 😔</button>
+        <button class="alert-btn" onclick="closeAlert()">حاضر هختار صح🙂</button>
     </div>
 </div>
 
@@ -234,11 +234,9 @@ video {
 </div>
 
 <div class="container" id="quizPage" style="display:none;">
-    <div id="questionsContainer">
-        </div>
+    <div id="questionsContainer"></div>
     
-    <button class="start-btn" style="margin-top: 30px; background: #a24857;" onclick="checkAllAnswers()">شوف المفاجأة بعد ما تخلص 🎁</button>
-    <p style="color: #888; font-size: 13px; margin-top: 10px;">حل كل السؤال عشان توصل للي بعده 😊</p>
+    <button class="start-btn" style="margin-top: 30px; background: #a24857;" onclick="checkAllAnswers()">يلا الي بعده 🌚</button>
 </div>
 
 <div class="container" id="surprisePage" style="display:none;">
@@ -422,7 +420,7 @@ function checkAllAnswers() {
         document.getElementById("surprisePage").style.display = "block";
         startLoveCounter();
     } else {
-        showCustomAlert("لسه مخلّصتش حل.. فرّ وحل كل الأسئلة صح عشان تفتح المفاجأة! 😡🌚");
+        showCustomAlert(" لسه مخلّصتش حل..! 😡🌚");
     }
 }
 
