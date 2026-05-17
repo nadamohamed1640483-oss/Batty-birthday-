@@ -10,69 +10,131 @@
 
 body{
     margin:0;
-    font-family:Arial, sans-serif;
-    background:linear-gradient(#ffd6e7,#fff);
-    text-align:center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ffe5ec, #f0f4f8);
+    text-align: center;
     min-height: 100vh;
+    padding-bottom: 40px;
 }
 
 .container{
-    width:90%;
-    max-width:500px;
-    margin:auto;
-    margin-top:40px;
-    background:white;
-    padding:20px;
-    border-radius:20px;
-    box-shadow:0 0 15px rgba(0,0,0,0.1);
+    width: 92%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 30px;
+    background: white;
+    padding: 25px 20px;
+    border-radius: 24px;
+    box-shadow: 0 8px 24px rgba(163, 118, 140, 0.15);
     box-sizing: border-box;
 }
 
-h1{
-    color:#ff4081;
+h1 {
+    color: #a24857;
+    font-size: 22px;
+    margin-bottom: 20px;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    margin:10px 0;
-    border:none;
-    border-radius:12px;
-    background:#ff6fa5;
-    color:white;
-    font-size:18px;
-    cursor:pointer;
-}
-
-/* ستايل كروت الأسئلة اللي ورا بعضها (الفرّ) */
-.quiz-scroll-container {
-    max-height: 70vh;
-    overflow-y: auto;
-    padding-right: 5px;
-}
-
-.question-card {
-    background: #fff5f8;
-    border: 1px solid #ffe1ec;
-    border-radius: 15px;
-    padding: 15px;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.05);
-}
-
-.question-title {
-    color: #ff4081;
-    font-size: 20px;
+/* زرار البداية الكبير */
+.start-btn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 50px;
+    background: #b36b85;
+    color: white;
+    font-size: 18px;
     font-weight: bold;
-    margin-bottom: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(179, 107, 133, 0.3);
+    transition: 0.2s;
 }
 
-/* ستايل نافذة الإنذار المخصصة */
+/* عنوان السؤال الفرعي */
+.question-number {
+    font-size: 13px;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.question-text {
+    font-size: 18px;
+    color: #4a4a4a;
+    font-weight: bold;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* ستايل الخيارات الطويلة المستديرة زي الصورة */
+.option-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 14px 20px;
+    margin: 12px 0;
+    background: #fcfcfc;
+    border: 1.5px solid #e8e8e8;
+    border-radius: 50px; /* مستدير بالكامل */
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.option-text {
+    font-size: 16px;
+    color: #555;
+    font-weight: 500;
+}
+
+/* شكل الدائرة (الراديو) اللي على الشمال */
+.radio-circle {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.radio-inner {
+    width: 10px;
+    height: 10px;
+    background: transparent;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+/* حالة الاختيار الصحيح (الموف/الوردي الهادي المكتوم) */
+.option-container.correct-style {
+    background: #fff0f5;
+    border-color: #b36b85;
+}
+.option-container.correct-style .radio-circle {
+    border-color: #b36b85;
+}
+.option-container.correct-style .radio-inner {
+    background: #b36b85;
+}
+
+/* حالة الاختيار الخطأ (أحمر خفيف ممسوح عشان ميبوظش الألوان) */
+.option-container.wrong-style {
+    background: #fdf2f2;
+    border-color: #f08080;
+}
+.option-container.wrong-style .radio-circle {
+    border-color: #f08080;
+}
+
+/* ستايل نافذة الإنذار الكيوت المخصصة للنكد */
 .custom-alert {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 9999;
     justify-content: center;
     align-items: center;
@@ -81,65 +143,74 @@ button{
 .alert-box {
     background: white;
     padding: 25px;
-    border-radius: 20px;
-    max-width: 400px;
+    border-radius: 24px;
+    max-width: 380px;
     width: 85%;
     text-align: center;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    animation: popIn 0.3s ease;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes popIn {
-    0% { transform: scale(0.7); opacity: 0; }
+    0% { transform: scale(0.8); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
 
 .alert-text {
-    color: #d1005d;
-    font-size: 20px;
+    color: #a24857;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
+    line-height: 1.5;
 }
 
 .alert-btn {
-    background: #ff6fa5;
+    background: #b36b85;
     color: white;
-    padding: 10px 25px;
+    padding: 10px 30px;
     border: none;
-    border-radius: 10px;
-    font-size: 16px;
+    border-radius: 50px;
+    font-size: 15px;
+    font-weight: bold;
     cursor: pointer;
 }
 
-img{
-    width:100%;
-    border-radius:20px;
-    margin-top:20px;
+/* ستايل الفاصل بين الأسئلة */
+.section-divider {
+    height: 1px;
+    background: #eee;
+    margin: 30px 10px;
 }
 
-video{
-    margin-top:20px;
-    border-radius:20px;
+img {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+video {
+    margin-top: 20px;
+    border-radius: 20px;
 }
 
 /* ستايل عداد الأيام السحري */
 .counter-box {
-    background: #fff0f5;
-    border: 2px dashed #ff6fa5;
-    border-radius: 15px;
+    background: #fff5f7;
+    border: 2px dashed #b36b85;
+    border-radius: 18px;
     padding: 15px;
-    margin: 20px 0;
+    margin: 25px 0;
 }
 .counter-title {
-    color: #d1005d;
-    font-size: 18px;
+    color: #a24857;
+    font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
     line-height: 1.5;
 }
 #timer {
-    font-size: 18px;
-    color: #ff4081;
+    font-size: 17px;
+    color: #b36b85;
     font-weight: bold;
     line-height: 1.6;
     margin-top: 5px;
@@ -158,33 +229,34 @@ video{
 </div>
 
 <div class="container" id="startPage">
-    <h1>لازم عيد ميلاد مدمودتي يكون مميز 🌚❣️</h1>
-    <button onclick="startQuestions()">يلا نبدأ يابطه 🌚</button>
+    <h1 style="font-size: 20px;">لازم عيد ميلاد مدمودتي يكون مميز 🌚❣️</h1>
+    <button class="start-btn" onclick="startQuestions()">يلا نبدأ يابطه 🌚</button>
 </div>
 
 <div class="container" id="quizPage" style="display:none;">
-    <div class="quiz-scroll-container" id="questionsContainer">
+    <div id="questionsContainer">
         </div>
-    <button style="margin-top: 20px; background: #d1005d;" onclick="checkAllAnswers()">شوف المفاجأة بعد ما تخلص 🎁</button>
-    <p>حل كل الأسئلة صح عشان تفتح المفاجأة 😊</p>
+    
+    <button class="start-btn" style="margin-top: 30px; background: #a24857;" onclick="checkAllAnswers()">شوف المفاجأة بعد ما تخلص 🎁</button>
+    <p style="color: #888; font-size: 13px; margin-top: 10px;">حل كل السؤال عشان توصل للي بعده 😊</p>
 </div>
 
 <div class="container" id="surprisePage" style="display:none;">
     <h1>🎂 Happybirthday ya batty🌚❣️ 🎂</h1>
 
-    <p style="font-size:20px; color:#333; font-weight:bold; margin: 15px 0;">
+    <p style="font-size:19px; color:#333; font-weight:bold; margin: 15px 0; line-height: 1.4;">
         كل سنه وانت طيب ياحبيبي احلى 21 سنه على فكره 🌚❣️
     </p>
 
-    <p style="font-size:18px; color:#555; margin: 10px 0;">
+    <p style="font-size:17px; color:#555; margin: 10px 0;">
         وكسرت ال20 بقيت عجوز خلاص 😔😂
     </p>
 
-    <p style="font-size:18px; color:#555; margin: 10px 0;">
+    <p style="font-size:17px; color:#555; margin: 10px 0; line-height: 1.4;">
         بس برضو هتفضل عسول وبطتي الي بيبقى طفل معايا بس 😂❣️
     </p>
 
-    <p style="font-size:18px; color:#555; margin: 10px 0;">
+    <p style="font-size:17px; color:#555; margin: 10px 0;">
         يارب تبقى سنه حلوه زي ما بتتمنى وتفضل مبسوط العمر كله يارب ❣️
     </p>
 
@@ -201,7 +273,7 @@ video{
         <source src="video.mp4" type="video/mp4">
     </video>
 
-    <p style="font-size:20px; margin-top:25px; color:#d1005d; font-weight:bold;">
+    <p style="font-size:19px; margin-top:25px; color:#a24857; font-weight:bold;">
         خلاص خلصنا كده يارب تكون عجبتك المفاجأة 🌚❣️
     </p>
 </div>
@@ -211,35 +283,38 @@ video{
 const questions = [
     {
         id: 0,
-        question:"بتحب مين اكتر؟",
-        answers:["الاهلي", "برشلونة", "انا", "المكرونه البشاميل"],
-        correct:"انا",
-        wrong:(a)=>`بتبيعني عشان ${a} 😡`
+        numberText: "السؤال الأول",
+        question: "بتحب مين اكتر؟",
+        answers: ["الاهلي", "برشلونة", "انا", "المكرونه البشاميل"],
+        correct: "انا",
+        wrong: (a) => `بتبيعني عشان ${a} 😡`
     },
     {
         id: 1,
-        question:"نكدي وحشك؟ ",
-        answers:["وحشني ونص كمان", "ما صدقت اترحمت منه", "انتي بتعرفي تنكدي اصلا؟", "لا"],
-        correct:"وحشني ونص كمان",
-        wrong:()=>`مكانتش العشره طب مفيش عيد ميلاد 😡`
+        numberText: "السؤال الثاني",
+        question: "نكدي وحشك؟",
+        answers: ["وحشني ونص كمان", "ما صدقت اترحمت منه", "انتي بتعرفي تنكدي اصلا؟", "لا"],
+        correct: "وحشني ونص كمان",
+        wrong: () => `مكانتش العشره طب مفيش عيد ميلاد 😡`
     },
     {
         id: 2,
-        question:"هتعمل اي لو كنت بعملك اكل وولعت فيه؟",
-        answers:["هتزعقلي", "هتقولي فداكي هو الي ولع لوحده", "هتجيب ليك انت بس اكل", "هتولع فيا"],
-        correct:"هتقولي فداكي هو الي ولع لوحده",
-        wrong:()=>`همك على بطنك ياحبيبي 😊😡`
+        numberText: "السؤال الثالث",
+        question: "هتعمل اي لو كنت بعملك اكل وولعت فيه؟",
+        answers: ["هتزعقلي", "هتقولي فداكي هو الي ولع لوحده", "هتجيب ليك انت بس اكل", "هتولع فيا"],
+        correct: "هتقولي فداكي هو الي ولع لوحده",
+        wrong: () => `همك على بطنك ياحبيبي 😊😡`
     },
     {
         id: 3,
-        question:"بتحبني قد اي؟ ",
-        answers:["مش بحبك اصلا", "قد البحر والكون وودان الفيل", "بحبك وخلاص"],
-        correct:"قد البحر والكون وودان الفيل",
-        wrong:()=>`هي بقت كده تمام متكلمنيش ☹️`
+        numberText: "السؤال الرابع",
+        question: "بتحبني قد اي؟",
+        answers: ["مش بحبك اصلا", "قد البحر والكون وودان الفيل", "بحبك وخلاص"],
+        correct: "قد البحر والكون وودان الفيل",
+        wrong: () => `هي بقت كده تمام متكلمنيش ☹️`
     }
 ];
 
-// مصفوفة لحفظ الإجابات التي يختارها المستخدم
 let userAnswers = {};
 
 function startQuestions(){
@@ -248,52 +323,77 @@ function startQuestions(){
     renderQuestions();
 }
 
-// دالة لعرض الأسئلة كلها ورا بعضها للفرّ
 function renderQuestions() {
     const container = document.getElementById("questionsContainer");
     container.innerHTML = "";
 
-    questions.forEach(q => {
-        const card = document.createElement("div");
-        card.className = "question-card";
+    questions.forEach((q, index) => {
+        const block = document.createElement("div");
+        
+        // عنوان رقم السؤال
+        const numTitle = document.createElement("div");
+        numTitle.className = "question-number";
+        numTitle.innerText = q.numberText;
+        block.appendChild(numTitle);
 
-        const title = document.createElement("div");
-        title.className = "question-title";
-        title.innerText = q.question;
-        card.appendChild(title);
+        // نص السؤال نفسه
+        const qTitle = document.createElement("div");
+        qTitle.className = "question-text";
+        qTitle.innerText = q.question;
+        block.appendChild(qTitle);
 
+        // الخيارات
         q.answers.forEach(answer => {
-            const btn = document.createElement("button");
-            btn.innerText = answer;
-            btn.id = `btn-${q.id}-${answer}`;
+            const optDiv = document.createElement("div");
+            optDiv.className = "option-container";
+            optDiv.id = `opt-${q.id}-${answer}`;
             
-            btn.onclick = () => selectAnswer(q.id, answer);
-            card.appendChild(btn);
+            const txt = document.createElement("span");
+            txt.className = "option-text";
+            txt.innerText = answer;
+            optDiv.appendChild(txt);
+
+            // الدائرة اللي على الشمال
+            const circle = document.createElement("div");
+            circle.className = "radio-circle";
+            const inner = document.createElement("div");
+            inner.className = "radio-inner";
+            circle.appendChild(inner);
+            optDiv.appendChild(circle);
+            
+            optDiv.onclick = () => selectAnswer(q.id, answer);
+            block.appendChild(optDiv);
         });
 
-        container.appendChild(card);
+        // حطي فاصل خط رمادي خفيف بين كل سؤال والتاني (ما عدا الأخير)
+        if (index < questions.length - 1) {
+            const divider = document.createElement("div");
+            divider.className = "section-divider";
+            block.appendChild(divider);
+        }
+
+        container.appendChild(block);
     });
 }
 
 function selectAnswer(questionId, selectedAnswer) {
     const q = questions.find(item => item.id === questionId);
     
-    // إعادة تعيين ألوان زراير هذا السؤال أولاً
+    // تصفير الستايل للسؤال ده عشان لو غير رأيه
     q.answers.forEach(ans => {
-        const b = document.getElementById(`btn-${questionId}-${ans}`);
-        b.style.background = "#ff6fa5"; // اللون الافتراضي البينك
+        const el = document.getElementById(`opt-${questionId}-${ans}`);
+        el.className = "option-container";
     });
 
+    const selectedEl = document.getElementById(`opt-${questionId}-${selectedAnswer}`);
+
     if (selectedAnswer === q.correct) {
-        // لو صح لون الزرار بيبقى أخضر هادي ومبهج
-        document.getElementById(`btn-${questionId}-${selectedAnswer}`).style.background = "#4caf50";
+        selectedEl.classList.add("correct-style");
         userAnswers[questionId] = true;
     } else {
-        // لو غلط لون الزرار بيبقى أحمر ويظهر الإنذار المخصص فوراً
-        document.getElementById(`btn-${questionId}-${selectedAnswer}`).style.background = "#f44336";
+        selectedEl.classList.add("wrong-style");
         userAnswers[questionId] = false;
         
-        // إظهار الإنذار بكلام النكد بتاعنا
         const errorMsg = typeof q.wrong === 'function' ? q.wrong(selectedAnswer) : q.wrong();
         showCustomAlert(errorMsg);
     }
@@ -309,7 +409,6 @@ function closeAlert() {
 }
 
 function checkAllAnswers() {
-    // التأكد إن كل الأسئلة تم حلها وصحيحة
     let allCorrect = true;
     
     questions.forEach(q => {
@@ -323,7 +422,7 @@ function checkAllAnswers() {
         document.getElementById("surprisePage").style.display = "block";
         startLoveCounter();
     } else {
-        showCustomAlert("لسه محلتش كل الأسئلة صح.. فرّ وحلهم كلهم صح عشان تشوف المفاجأة! 😡🌚");
+        showCustomAlert("لسه مخلّصتش حل.. فرّ وحل كل الأسئلة صح عشان تفتح المفاجأة! 😡🌚");
     }
 }
 
