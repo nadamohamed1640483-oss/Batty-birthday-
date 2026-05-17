@@ -108,7 +108,7 @@ h1 {
     transition: all 0.2s ease;
 }
 
-/* حالة الاختيار الصحيح (الموف/الوردي الهادي المكتوم) */
+/* حالة الاختيار الصحيح */
 .option-container.correct-style {
     background: #fff0f5;
     border-color: #b36b85;
@@ -120,7 +120,7 @@ h1 {
     background: #b36b85;
 }
 
-/* حالة الاختيار الخطأ (أحمر خفيف ممسوح عشان ميبوظش الألوان) */
+/* حالة الاختيار الخطأ */
 .option-container.wrong-style {
     background: #fdf2f2;
     border-color: #f08080;
@@ -129,7 +129,7 @@ h1 {
     border-color: #f08080;
 }
 
-/* ستايل نافذة الإنذار الكيوت المخصصة للنكد */
+/* ستايل نافذة الإنذار الكيوت */
 .custom-alert {
     display: none;
     position: fixed;
@@ -224,18 +224,17 @@ video {
 <div class="custom-alert" id="customAlert">
     <div class="alert-box">
         <div class="alert-text" id="alertMessage">الرسالة هنا</div>
-        <button class="alert-btn" onclick="closeAlert()">خلاص هختار صح🙂</button>
+        <button class="alert-btn" onclick="closeAlert()">حاضر هختار صح 🙂</button>
     </div>
 </div>
 
-<div class="container" id="startPage">
+<div class="container" id="startPage" style="display:block;">
     <h1 style="font-size: 20px;">لازم عيد ميلاد مدمودتي يكون مميز 🌚❣️</h1>
     <button class="start-btn" onclick="startQuestions()">يلا نبدأ يابطه 🌚</button>
 </div>
 
 <div class="container" id="quizPage" style="display:none;">
     <div id="questionsContainer"></div>
-    
     <button class="start-btn" style="margin-top: 30px; background: #a24857;" onclick="checkAllAnswers()">يلا الي بعده 🌚</button>
 </div>
 
@@ -413,12 +412,11 @@ function checkAllAnswers() {
         document.getElementById("quizPage").style.display = "none";
         document.getElementById("surprisePage").style.display = "block";
         
-        // السطر السحري عشان يجبر الموبايل يطلع لفوق خالص أول ما يفتح المفاجأة
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
         startLoveCounter();
     } else {
-        showCustomAlert( انت لسه مخلّصتش حل.. ! 😡🌚");
+        showCustomAlert("انت لسه مخلّصتش حل..! 😡🌚");
     }
 }
 
