@@ -62,29 +62,6 @@ video{
     border-radius:20px;
 }
 
-/* ستايل عداد الأيام السحري */
-.counter-box {
-    background: #fff0f5;
-    border: 2px dashed #ff6fa5;
-    border-radius: 15px;
-    padding: 15px;
-    margin: 20px 0;
-}
-.counter-title {
-    color: #d1005d;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 5px;
-    line-height: 1.5;
-}
-#timer {
-    font-size: 18px;
-    color: #ff4081;
-    font-weight: bold;
-    line-height: 1.6;
-    margin-top: 5px;
-}
-
 </style>
 </head>
 
@@ -121,12 +98,6 @@ video{
         يارب تبقى سنه حلوه زي ما بتتمنى وتفضل مبسوط العمر كله يارب ❣️
     </p>
 
-    <div class="counter-box">
-        <div class="counter-title">اليوم الي بدأنا فيه كلام وبدايه كل حاجه 🌚</div>
-        <div class="counter-title">بقالي معاك🌚❣️</div>
-        <div id="timer">بيحسب الثواني...</div>
-    </div>
-
     <img src="photo1.jpg" alt="">
     <img src="photo2.jpg" alt="">
 
@@ -149,7 +120,7 @@ const questions = [
         wrong:(a)=>`بتبيعني عشان ${a} 😡`
     },
     {
-        question:"نكدي وحشك؟ ",
+        question:"نكدي وحشك؟",
         answers:["وحشني ونص كمان", "ما صدقت اترحمت منه", "انتي بتعرفي تنكدي اصلا؟", "لا"],
         correct:"وحشني ونص كمان",
         wrong:()=>`مكانتش العشره طب مفيش عيد ميلاد 😡`
@@ -161,7 +132,7 @@ const questions = [
         wrong:()=>`همك على بطنك ياحبيبي 😊😡`
     },
     {
-        question:"بتحبني قد اي؟ ",
+        question:"بتحبني قد اي؟",
         answers:["مش بحبك اصلا", "قد البحر والكون وودان الفيل", "بحبك وخلاص"],
         correct:"قد البحر والكون وودان الفيل",
         wrong:()=>`هي بقت كده تمام متكلمنيش ☹️`
@@ -203,30 +174,12 @@ function checkAnswer(answer){
                 loadQuestion();
             },1000);
         }else{
-            // إظهار صفحة المفاجأة المظبوطة وإخفاء الأسئلة
             document.getElementById("quizPage").style.display = "none";
             document.getElementById("surprisePage").style.display = "block";
-            startLoveCounter();
         }
     }else{
         msg.innerText = q.wrong(answer);
     }
-}
-
-function startLoveCounter() {
-    const startDate = new Date("2025-10-07T18:20:00"); 
-    
-    setInterval(() => {
-        const now = new Date();
-        const difference = now - startDate;
-
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-        document.getElementById("timer").innerHTML = days + " يوم و " + hours + " ساعة و " + minutes + " دقيقة و " + seconds + " ثانية ";
-    }, 1000);
 }
 
 </script>
