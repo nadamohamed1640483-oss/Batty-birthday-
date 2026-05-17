@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<مينTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -60,6 +60,29 @@ video{
     border-radius:20px;
 }
 
+/* ستايل عداد الأيام السحري */
+.counter-box {
+    background: #fff0f5;
+    border: 2px dashed #ff6fa5;
+    border-radius: 15px;
+    padding: 15px;
+    margin: 20px 0;
+}
+.counter-title {
+    color: #d1005d;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+#timer {
+    font-size: 18px;
+    color: #ff4081;
+    font-weight: bold;
+    line-height: 1.6;
+    margin-top: 5px;
+}
+
 </style>
 </head>
 
@@ -87,7 +110,7 @@ video{
 
 <div id="message"></div>
 
-<p>حل السؤال عشان توصل للي بعده 😊</p>
+<p>حل الاسئله عشان توصل للي بعده 😊</p>
 
 </div>
 
@@ -96,7 +119,7 @@ video{
 const questions = [
 
 {
-question:"بتحب مين اكتر؟",
+question:"ببتحب اي اكتر؟",
 
 answers:[
 "الاهلي",
@@ -111,7 +134,7 @@ wrong:(a)=>`بتبيعني عشان ${a} 😡`
 },
 
 {
-question:"نكدي وحشك؟ ",
+question:"نكدي وحشك؟",
 
 answers:[
 "وحشني ونص كمان",
@@ -141,7 +164,7 @@ wrong:()=>`همك على بطنك ياحبيبي 😊😡`
 },
 
 {
-question:"بتحبني قد اي؟",
+question:"بتحبني قد اي？",
 
 answers:[
 "مش بحبك اصلا",
@@ -231,14 +254,22 @@ document.body.innerHTML = `
 </p>
 
 <p style="font-size:18px;">
-بس برضو هتفضل عسول وبطتي الي بيبقى طفل معايا بس 😂❣️
+بس برضو هتفضل عسول وبطتي الي بيبقى طفل معايا ب
+</p❣️
 </p>
 
 <p style="font-size:18px;">
 يارب تبقى سنه حلوه زي ما بتتمنى وتفضل مبسوط العمر كله يارب ❣️
 </p>
 
-<!-- الصورتين من غير كلمة صورتنا -->
+<!-- العداد قبل الصور بالجملة الجديدة بالظبط -->
+<div class="counter-box">
+    <div class="counter-title">اليوم الي بدأنا فيه كلام وبدايه كل حاجه 🌚</div>
+    <div class="counter-title">بقالي معاك🌚❣️</div>
+    <div id="timer">بيحسب الثواني...</div>
+</div>
+
+<!-- الصورتين -->
 
 <img src="photo1.jpg" alt="">
 <img src="photo2.jpg" alt="">
@@ -259,6 +290,9 @@ document.body.innerHTML = `
 
 `;
 
+// تشغيل العداد السحري فوراً
+startLoveCounter();
+
 }
 
 }else{
@@ -267,6 +301,23 @@ msg.innerText = q.wrong(answer);
 
 }
 
+}
+
+// دالة حساب الوقت لايف من تاريخ 7/10/2025 الساعة 6:20 مساءً
+function startLoveCounter() {
+    const startDate = new Date("2025-10-07T18:20:00"); 
+    
+    setInterval(() => {
+        const now = new Date();
+        const difference = now - startDate;
+
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+        document.getElementById("timer").innerHTML = days + " يوم و " + hours + " ساعة و " + minutes + " دقيقة و " + seconds + " ثانية ";
+    }, 1000);
 }
 
 </script>
