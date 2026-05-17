@@ -1,4 +1,4 @@
-<مينTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -10,9 +10,10 @@
 
 body{
     margin:0;
-    font-family:Arial;
+    font-family:Arial, sans-serif;
     background:linear-gradient(#ffd6e7,#fff);
     text-align:center;
+    min-height: 100vh;
 }
 
 .container{
@@ -24,6 +25,7 @@ body{
     padding:20px;
     border-radius:20px;
     box-shadow:0 0 15px rgba(0,0,0,0.1);
+    box-sizing: border-box;
 }
 
 h1{
@@ -88,222 +90,129 @@ video{
 
 <body>
 
-<!-- الصفحة الأولى -->
-
 <div class="container" id="startPage">
-
-<h1>لازم عيد ميلاد مدمودتي يكون مميز 🌚❣️</h1>
-
-<button onclick="startQuestions()">
-يلا نبدأ يابطه 🌚
-</button>
-
+    <h1>لازم عيد ميلاد مدمودتي يكون مميز 🌚❣️</h1>
+    <button onclick="startQuestions()">يلا نبدأ يابطه 🌚</button>
 </div>
 
-<!-- صفحة الأسئلة -->
-
 <div class="container" id="quizPage" style="display:none;">
+    <h1 id="question"></h1>
+    <div id="answers"></div>
+    <div id="message"></div>
+    <p>حل الاسئله عشان توصل للي بعده 😊</p>
+</div>
 
-<h1 id="question"></h1>
+<div class="container" id="surprisePage" style="display:none;">
+    <h1>🎂 Happybirthday ya batty🌚❣️ 🎂</h1>
 
-<div id="answers"></div>
+    <p style="font-size:20px; color:#333; font-weight:bold; margin: 15px 0;">
+        كل سنه وانت طيب ياحبيبي احلى 21 سنه على فكره 🌚❣️
+    </p>
 
-<div id="message"></div>
+    <p style="font-size:18px; color:#555; margin: 10px 0;">
+        وكسرت ال20 بقيت عجوز خلاص 😔😂
+    </p>
 
-<p>حل الاسئله عشان توصل للي بعده 😊</p>
+    <p style="font-size:18px; color:#555; margin: 10px 0;">
+        بس برضو هتفضل عسول وبطتي الي بيبقى طفل معايا بس 😂❣️
+    </p>
 
+    <p style="font-size:18px; color:#555; margin: 10px 0;">
+        يارب تبقى سنه حلوه زي ما بتتمنى وتفضل مبسوط العمر كله يارب ❣️
+    </p>
+
+    <div class="counter-box">
+        <div class="counter-title">اليوم الي بدأنا فيه كلام وبدايه كل حاجه 🌚</div>
+        <div class="counter-title">بقالي معاك🌚❣️</div>
+        <div id="timer">بيحسب الثواني...</div>
+    </div>
+
+    <img src="photo1.jpg" alt="">
+    <img src="photo2.jpg" alt="">
+
+    <video width="100%" controls>
+        <source src="video.mp4" type="video/mp4">
+    </video>
+
+    <p style="font-size:20px; margin-top:25px; color:#d1005d; font-weight:bold;">
+        خلاص خلصنا كده يارب تكون عجبتك المفاجأة 🌚❣️
+    </p>
 </div>
 
 <script>
 
 const questions = [
-
-{
-question:"ببتحب اي اكتر؟",
-
-answers:[
-"الاهلي",
-"برشلونة",
-"انا",
-"المكرونه البشاميل"
-],
-
-correct:"انا",
-
-wrong:(a)=>`بتبيعني عشان ${a} 😡`
-},
-
-{
-question:"نكدي وحشك؟",
-
-answers:[
-"وحشني ونص كمان",
-"ما صدقت اترحمت منه",
-"انتي بتعرفي تنكدي اصلا؟",
-"لا"
-],
-
-correct:"وحشني ونص كمان",
-
-wrong:()=>`مكانتش العشره طب مفيش عيد ميلاد 😡`
-},
-
-{
-question:"هتعمل اي لو كنت بعملك اكل وولعت فيه؟",
-
-answers:[
-"هتزعقلي",
-"هتقولي فداكي هو الي ولع لوحده",
-"هتجيب ليك انت بس اكل",
-"هتولع فيا"
-],
-
-correct:"هتقولي فداكي هو الي ولع لوحده",
-
-wrong:()=>`همك على بطنك ياحبيبي 😊😡`
-},
-
-{
-question:"بتحبني قد اي？",
-
-answers:[
-"مش بحبك اصلا",
-"قد البحر والكون وودان الفيل",
-"بحبك وخلاص"
-],
-
-correct:"قد البحر والكون وودان الفيل",
-
-wrong:()=>`هي بقت كده تمام متكلمنيش ☹️`
-}
-
+    {
+        question:"بتحب مين اكتر؟",
+        answers:["الاهلي", "برشلونة", "انا", "المكرونه البشاميل"],
+        correct:"انا",
+        wrong:(a)=>`بتبيعني عشان ${a} 😡`
+    },
+    {
+        question:"نكدي وحشك؟ ",
+        answers:["وحشني ونص كمان", "ما صدقت اترحمت منه", "انتي بتعرفي تنكدي اصلا؟", "لا"],
+        correct:"وحشني ونص كمان",
+        wrong:()=>`مكانتش العشره طب مفيش عيد ميلاد 😡`
+    },
+    {
+        question:"هتعمل اي لو كنت بعملك اكل وولعت فيه؟",
+        answers:["هتزعقلي", "هتقولي فداكي هو الي ولع لوحده", "هتجيب ليك انت بس اكل", "هتولع فيا"],
+        correct:"هتقولي فداكي هو الي ولع لوحده",
+        wrong:()=>`همك على بطنك ياحبيبي 😊😡`
+    },
+    {
+        question:"بتحبني قد اي؟ ",
+        answers:["مش بحبك اصلا", "قد البحر والكون وودان الفيل", "بحبك وخلاص"],
+        correct:"قد البحر والكون وودان الفيل",
+        wrong:()=>`هي بقت كده تمام متكلمنيش ☹️`
+    }
 ];
 
 let current = 0;
 
 function startQuestions(){
-
-document.getElementById("startPage").style.display = "none";
-
-document.getElementById("quizPage").style.display = "block";
-
-loadQuestion();
-
+    document.getElementById("startPage").style.display = "none";
+    document.getElementById("quizPage").style.display = "block";
+    loadQuestion();
 }
 
 function loadQuestion(){
+    const q = questions[current];
+    document.getElementById("question").innerText = q.question;
+    const answersDiv = document.getElementById("answers");
+    answersDiv.innerHTML = "";
 
-const q = questions[current];
-
-document.getElementById("question").innerText = q.question;
-
-const answersDiv = document.getElementById("answers");
-
-answersDiv.innerHTML = "";
-
-q.answers.forEach(answer=>{
-
-const btn = document.createElement("button");
-
-btn.innerText = answer;
-
-btn.onclick = ()=>checkAnswer(answer);
-
-answersDiv.appendChild(btn);
-
-});
-
+    q.answers.forEach(answer=>{
+        const btn = document.createElement("button");
+        btn.innerText = answer;
+        btn.onclick = ()=>checkAnswer(answer);
+        answersDiv.appendChild(btn);
+    });
 }
 
 function checkAnswer(answer){
+    const q = questions[current];
+    const msg = document.getElementById("message");
 
-const q = questions[current];
-
-const msg = document.getElementById("message");
-
-if(answer === q.correct){
-
-current++;
-
-if(current < questions.length){
-
-msg.innerText = "صح يابطتي 🌚❣️";
-
-setTimeout(()=>{
-
-msg.innerText = "";
-
-loadQuestion();
-
-},1000);
-
-}else{
-
-document.body.innerHTML = `
-
-<div class="container">
-
-<h1>🎂 Happybirthday ya batty🌚❣️ 🎂</h1>
-
-<p style="font-size:22px;">
-كل سنه وانت طيب ياحبيبي احلى 21 سنه على فكره 🌚❣️
-</p>
-
-<p style="font-size:18px;">
-وكسرت ال20 بقيت عجوز خلاص 😔😂
-</p>
-
-<p style="font-size:18px;">
-بس برضو هتفضل عسول وبطتي الي بيبقى طفل معايا ب
-</p❣️
-</p>
-
-<p style="font-size:18px;">
-يارب تبقى سنه حلوه زي ما بتتمنى وتفضل مبسوط العمر كله يارب ❣️
-</p>
-
-<!-- العداد قبل الصور بالجملة الجديدة بالظبط -->
-<div class="counter-box">
-    <div class="counter-title">اليوم الي بدأنا فيه كلام وبدايه كل حاجه 🌚</div>
-    <div class="counter-title">بقالي معاك🌚❣️</div>
-    <div id="timer">بيحسب الثواني...</div>
-</div>
-
-<!-- الصورتين -->
-
-<img src="photo1.jpg" alt="">
-<img src="photo2.jpg" alt="">
-
-<!-- الفيديو -->
-
-<video width="100%" controls>
-
-<source src="video.mp4" type="video/mp4">
-
-</video>
-
-<p style="font-size:20px; margin-top:20px;">
-خلاص خلصنا كده يارب تكون عجبتك المفاجأة 🌚❣️
-</p>
-
-</div>
-
-`;
-
-// تشغيل العداد السحري فوراً
-startLoveCounter();
-
+    if(answer === q.correct){
+        current++;
+        if(current < questions.length){
+            msg.innerText = "صح يابطتي 🌚❣️";
+            setTimeout(()=>{
+                msg.innerText = "";
+                loadQuestion();
+            },1000);
+        }else{
+            // إظهار صفحة المفاجأة المظبوطة وإخفاء الأسئلة
+            document.getElementById("quizPage").style.display = "none";
+            document.getElementById("surprisePage").style.display = "block";
+            startLoveCounter();
+        }
+    }else{
+        msg.innerText = q.wrong(answer);
+    }
 }
 
-}else{
-
-msg.innerText = q.wrong(answer);
-
-}
-
-}
-
-// دالة حساب الوقت لايف من تاريخ 7/10/2025 الساعة 6:20 مساءً
 function startLoveCounter() {
     const startDate = new Date("2025-10-07T18:20:00"); 
     
