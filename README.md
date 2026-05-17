@@ -241,8 +241,6 @@ document.body.innerHTML = `
 
 <!-- الصورة -->
 
-<img src="photo.jpg" alt="صورتنا">
-
 <!-- الفيديو -->
 
 <video width="100%" controls>
