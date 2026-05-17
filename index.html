@@ -224,7 +224,7 @@ video {
 <div class="custom-alert" id="customAlert">
     <div class="alert-box">
         <div class="alert-text" id="alertMessage">الرسالة هنا</div>
-        <button class="alert-btn" onclick="closeAlert()">حاضر هختار صح🙂</button>
+        <button class="alert-btn" onclick="closeAlert()">خلاص هختار صح🙂</button>
     </div>
 </div>
 
@@ -328,19 +328,16 @@ function renderQuestions() {
     questions.forEach((q, index) => {
         const block = document.createElement("div");
         
-        // عنوان رقم السؤال
         const numTitle = document.createElement("div");
         numTitle.className = "question-number";
         numTitle.innerText = q.numberText;
         block.appendChild(numTitle);
 
-        // نص السؤال نفسه
         const qTitle = document.createElement("div");
         qTitle.className = "question-text";
         qTitle.innerText = q.question;
         block.appendChild(qTitle);
 
-        // الخيارات
         q.answers.forEach(answer => {
             const optDiv = document.createElement("div");
             optDiv.className = "option-container";
@@ -351,7 +348,6 @@ function renderQuestions() {
             txt.innerText = answer;
             optDiv.appendChild(txt);
 
-            // الدائرة اللي على الشمال
             const circle = document.createElement("div");
             circle.className = "radio-circle";
             const inner = document.createElement("div");
@@ -363,7 +359,6 @@ function renderQuestions() {
             block.appendChild(optDiv);
         });
 
-        // حطي فاصل خط رمادي خفيف بين كل سؤال والتاني (ما عدا الأخير)
         if (index < questions.length - 1) {
             const divider = document.createElement("div");
             divider.className = "section-divider";
@@ -377,7 +372,6 @@ function renderQuestions() {
 function selectAnswer(questionId, selectedAnswer) {
     const q = questions.find(item => item.id === questionId);
     
-    // تصفير الستايل للسؤال ده عشان لو غير رأيه
     q.answers.forEach(ans => {
         const el = document.getElementById(`opt-${questionId}-${ans}`);
         el.className = "option-container";
@@ -418,9 +412,13 @@ function checkAllAnswers() {
     if (allCorrect) {
         document.getElementById("quizPage").style.display = "none";
         document.getElementById("surprisePage").style.display = "block";
+        
+        // السطر السحري عشان يجبر الموبايل يطلع لفوق خالص أول ما يفتح المفاجأة
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
         startLoveCounter();
     } else {
-        showCustomAlert(" لسه مخلّصتش حل..! 😡🌚");
+        showCustomAlert( انت لسه مخلّصتش حل.. ! 😡🌚");
     }
 }
 
