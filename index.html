@@ -216,6 +216,47 @@ video {
     margin-top: 5px;
 }
 
+/* الأكواد الجديدة الخاصة بصندوق التشفير والرسالة */
+.encryption-box {
+    background: #fffafb;
+    border: 2px dashed #b36b85;
+    border-radius: 20px;
+    padding: 20px 15px;
+    margin-top: 20px;
+}
+input[type="text"] {
+    width: 85%;
+    padding: 12px 20px;
+    border: 2px solid #e8e8e8;
+    border-radius: 50px;
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+input[type="text"]:focus {
+    border-color: #b36b85;
+}
+.letter-box {
+    text-align: right;
+    font-size: 17px;
+    color: #4a4a4a;
+    line-height: 1.8;
+    white-space: pre-line;
+}
+.cursor {
+    display: inline-block;
+    width: 2px;
+    background-color: #b36b85;
+    animation: blink 1s infinite;
+}
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
 </style>
 </head>
 
@@ -224,7 +265,7 @@ video {
 <div class="custom-alert" id="customAlert">
     <div class="alert-box">
         <div class="alert-text" id="alertMessage">الرسالة هنا</div>
-        <button class="alert-btn" onclick="closeAlert()">خلاص هختار صح 🙂</button>
+        <button class="alert-btn" id="alertCloseBtn" onclick="closeAlert()">خلاص هختار صح 🙂</button>
     </div>
 </div>
 
@@ -270,7 +311,27 @@ video {
         <source src="video.mp4" type="video/mp4">
     </video>
 
-    <p style="font-size:19px; margin-top:25px; color:#a24857; font-weight:bold;">
+    <div style="margin-top: 25px;" id="lastActionBtnContainer">
+        <button class="start-btn" id="lastActionBtn" style="background: #b36b85;" onclick="showPasswordBox()">يلا اخر حاجه 🌚</button>
+    </div>
+
+    <div class="encryption-box" id="encryptionBox" style="display: none;">
+        <div id="lockSection">
+            <h3 style="color: #a24857; margin-top: 0;">🍾 وصلتلك رسالة في زجاجة مشفرة...</h3>
+            <p style="color: #777; font-size: 13.5px; line-height: 1.4;">الرسالة دي مقفولة بسر ميعرفوش غيرك، اكتب الباسورد المميز بيننا (12/12) عشان تفك التشفير 🌚</p>
+            <input type="text" id="passwordInput" placeholder="اكتب الباسورد هنا...">
+            <button class="start-btn" style="padding: 12px; font-size: 16px; background: #a24857;" onclick="unlockMessage()">فك التشفير 🔓</button>
+        </div>
+        
+        <div id="secretMessageSection" style="display: none;">
+            <h3 style="color: #a24857; text-align: center; margin-top: 0;">💌 رسالتك السرية يابطة</h3>
+            <div class="letter-box">
+                <span id="typingText"></span><span class="cursor" id="cursor">|</span>
+            </div>
+        </div>
+    </div>
+
+    <p id="finalClosingMsg" style="font-size:19px; margin-top:35px; color:#a24857; font-weight:bold; display:none;">
         خلاص خلصنا كده يارب تكون عجبتك المفاجأة 🌚❣️
     </p>
 </div>
@@ -386,12 +447,13 @@ function selectAnswer(questionId, selectedAnswer) {
         userAnswers[questionId] = false;
         
         const errorMsg = typeof q.wrong === 'function' ? q.wrong(selectedAnswer) : q.wrong();
-        showCustomAlert(errorMsg);
+        showCustomAlert(errorMsg, "خلاص هختار صح 🙂");
     }
 }
 
-function showCustomAlert(text) {
+function showCustomAlert(text, btnText = "خلاص هختار صح 🙂") {
     document.getElementById("alertMessage").innerText = text;
+    document.getElementById("alertCloseBtn").innerText = btnText;
     document.getElementById("customAlert").style.display = "flex";
 }
 
@@ -416,7 +478,7 @@ function checkAllAnswers() {
         
         startLoveCounter();
     } else {
-        showCustomAlert("انت لسه مخلّصتش حل..! 😡🌚");
+        showCustomAlert("انت لسه مخلّصتش حل..! 😡🌚", "ماشي 😔");
     }
 }
 
@@ -434,6 +496,55 @@ function startLoveCounter() {
 
         document.getElementById("timer").innerHTML = days + " يوم و " + hours + " ساعة و " + minutes + " دقيقة و " + seconds + " ثانية ";
     }, 1000);
+}
+
+// دالة لإظهار صندوق الباسورد وإخفاء زرار "يلا اخر حاجه"
+function showPasswordBox() {
+    document.getElementById("lastActionBtnContainer").style.display = "none";
+    document.getElementById("encryptionBox").style.display = "block";
+    window.scrollBy({ top: 150, behavior: 'smooth' });
+}
+
+// كود فك التشفير والرسالة بالباسورد الجديد (12/12)
+const correctPassword = "12/12"; 
+const fullMessageText = `عيزاك تعرف اني هفضل دايما بحبك ❣️
+
+هفضل دايما اكتر حد بيخاف وهيخاف عليك..
+
+هفضل دايما بدعيلك في كل صلاه وفي كل وقت..
+
+هفضل دايما عايزه اشوفك ناجح ومبسوط ومرتاح..
+
+هفضل دايما بتمنالك الخير من كل قلبي..
+
+انك هتفضل احلى حاجه واحلى صدفه حصلتلي في حياتي..
+
+وهتفضل دايما My first and last love ❣️`;
+
+function unlockMessage() {
+    const userInput = document.getElementById("passwordInput").value.trim();
+    if (userInput === correctPassword) {
+        document.getElementById("lockSection").style.display = "none";
+        document.getElementById("secretMessageSection").style.display = "block";
+        startTypingEffect();
+    } else {
+        showCustomAlert("الباسورد غلط! ركز شوية متضيعش العِشرة 😡 الكود مش هيفتح!", "هفتكر صح 😔");
+    }
+}
+
+let typingIndex = 0;
+function startTypingEffect() {
+    const textContainer = document.getElementById("typingText");
+    if (typingIndex < fullMessageText.length) {
+        textContainer.innerHTML += fullMessageText.charAt(typingIndex);
+        typingIndex++;
+        setTimeout(startTypingEffect, 65); 
+    } else {
+        document.getElementById("cursor").style.display = "none";
+        // الجملة الأخيرة تظهر فوراً بعد انتهاء تأثير الكتابة
+        document.getElementById("finalClosingMsg").style.display = "block";
+        window.scrollBy({ top: 100, behavior: 'smooth' });
+    }
 }
 
 </script>
