@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -264,7 +265,7 @@ input[type="text"]:focus {
 <div class="custom-alert" id="customAlert">
     <div class="alert-box">
         <div class="alert-text" id="alertMessage">الرسالة هنا</div>
-        <button class="alert-btn" id="alertCloseBtn" onclick="closeAlert()">خلاص هحل صح 🙂</button>
+        <button class="alert-btn" id="alertBtn" onclick="closeAlert()">خلاص هحل صح 🙂</button>
     </div>
 </div>
 
@@ -446,12 +447,14 @@ function selectAnswer(questionId, selectedAnswer) {
         userAnswers[questionId] = false;
         
         const errorMsg = typeof q.wrong === 'function' ? q.wrong(selectedAnswer) : q.wrong();
-        showCustomAlert(errorMsg);
+        showCustomAlert(errorMsg," خلاص هختار صح🙂"); // بنرجع الكلام الطبيعي لو غلط في الأسئلة العادية
     }
 }
 
-function showCustomAlert(text) {
+// عدلنا الدالة دي عشان تستقبل نص الزرار وتغيره تلقائي
+function showCustomAlert(text, buttonText = "حاضر هركز اهو 🙂") {
     document.getElementById("alertMessage").innerText = text;
+    document.getElementById("alertBtn").innerText = buttonText;
     document.getElementById("customAlert").style.display = "flex";
 }
 
@@ -526,7 +529,8 @@ function unlockMessage() {
         document.getElementById("secretMessageSection").style.display = "block";
         startTypingEffect();
     } else {
-        showCustomAlert(" الباسورد غلط ركز شوية😡 !");
+        // هنا ضفنا النص الجديد اللي طلبتيه للزرار لما الباسورد يطلع غلط
+        showCustomAlert(" الباسورد غلط ركز شوية😡 !", "حاضر هركز اهو 🙂");
     }
 }
 
