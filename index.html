@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -216,7 +216,7 @@ video {
     margin-top: 5px;
 }
 
-/* الأكواد الجديدة الخاصة بصندوق التشفير والرسالة */
+/* الاستايل الجديد لصندوق فك التشفير والرسالة التلقائية */
 .encryption-box {
     background: #fffafb;
     border: 2px dashed #b36b85;
@@ -319,12 +319,12 @@ input[type="text"]:focus {
         <div id="lockSection">
             <h3 style="color: #a24857; margin-top: 0;">❣️🌚</h3>
             <p style="color: #777; font-size: 13.5px; line-height: 1.4;">ارجع لشاتنا لما انت قولت..........بق تريخي المفضل🌚</p>
-            <input type="text" id="passwordInput" placeholder="......">
-            <button class="start-btn" style="padding: 12px; font-size: 16px; background: #a24857;" onclick="unlockMessage()"،<افتح🌚</button>
+            <input type="text" id="passwordInput" placeholder="اكتب الباسورد هنا...">
+            <button class="start-btn" style="padding: 12px; font-size: 16px; background: #a24857;" onclick="unlockMessage()">افتح 🌚 🔓</button>
         </div>
         
         <div id="secretMessageSection" style="display: none;">
-            <h3 style="color: #a24857; text-align: center; margin-top: 0;"🌚❣️</h3>
+            <h3 style="color: #a24857; text-align: center; margin-top: 0;"> </h3>
             <div class="letter-box">
                 <span id="typingText"></span><span class="cursor" id="cursor">|</span>
             </div>
@@ -447,13 +447,12 @@ function selectAnswer(questionId, selectedAnswer) {
         userAnswers[questionId] = false;
         
         const errorMsg = typeof q.wrong === 'function' ? q.wrong(selectedAnswer) : q.wrong();
-        showCustomAlert(errorMsg, "خلاص هختار صح 🙂");
+        showCustomAlert(errorMsg);
     }
 }
 
-function showCustomAlert(text, btnText = "خلاص هختار صح 🙂") {
+function showCustomAlert(text) {
     document.getElementById("alertMessage").innerText = text;
-    document.getElementById("alertCloseBtn").innerText = btnText;
     document.getElementById("customAlert").style.display = "flex";
 }
 
@@ -478,10 +477,9 @@ function checkAllAnswers() {
         
         startLoveCounter();
     } else {
-        showCustomAlert(،"انت لسه مخلّصتش حل.. �
+        showCustomAlert("انت لسه مخلّصتش حل..! 😡");
     }
-});
-   tio}
+}
 
 function startLoveCounter() {
     const startDate = new Date("2025-10-07T18:20:00"); 
@@ -506,7 +504,7 @@ function showPasswordBox() {
     window.scrollBy({ top: 150, behavior: 'smooth' });
 }
 
-// كود فك التشفير والرسالة بالباسورد الجديد (12/12)
+// كود فك التشفير والرسالة بالباسورد المبرمج (12/12)
 const correctPassword = "12/12"; 
 const fullMessageText = `عيزاك تعرف اني هفضل دايما بحبك ❣️
 
@@ -529,7 +527,7 @@ function unlockMessage() {
         document.getElementById("secretMessageSection").style.display = "block";
         startTypingEffect();
     } else {
-        showCustomAlert("الباسورد غلططططط 😡", "حاضر هفتكر صح");
+        showCustomAlert(" الباسورد غلط ركز شوية😡 !");
     }
 }
 
@@ -542,7 +540,7 @@ function startTypingEffect() {
         setTimeout(startTypingEffect, 65); 
     } else {
         document.getElementById("cursor").style.display = "none";
-        // الجملة الأخيرة تظهر فوراً بعد انتهاء تأثير الكتابة
+        // الجملة الأخيرة الأساسية تظهر فوراً بعد انتهاء تأثير الكتابة في نهاية الصفحة
         document.getElementById("finalClosingMsg").style.display = "block";
         window.scrollBy({ top: 100, behavior: 'smooth' });
     }
